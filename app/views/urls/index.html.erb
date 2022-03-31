@@ -19,6 +19,11 @@
               <button type="submit" class="waves-effect waves-light btn">Shorten URL</button>
             </div>
           </div>
+            <div class="row">
+              <p id="error" class="red"><%= flash[:error] %></p>
+              <p id="notice" class="yellow"><%= flash[:notice] %></p>
+              <p id="success" class="green"><%= flash[:success] %></p>
+            </div>
         </div>
       </div>
     <% end %>
@@ -37,10 +42,10 @@
   <tbody>
     <% @urls.each do |url| %>
       <tr>
-        <th scope="row"><a href="http://127.0.0.1:3002/ABCDE">http://127.0.0.1:3002/ABCDE</a></th>
-        <td><a href="https://drive.google.com/file/d/1VdLgSSMojWFb1GRoBAFX_eXy7oX2J">drive.google.com/file/d/1VdLgSS...</a></td>
-        <td><!-- Please match the same format -->Feb 24, 2021</td>
-        <td><%= (0..10).to_a.sample %></td>
+        <th scope="row"><a href=<%= url.short_url %> target="_blank"><%= request.host+"/"+url.short_url %></a></th>
+        <td><a href=<%= url.original_url %> target="_blank"><%= url.original_url %></a></td>
+        <td><!-- Please match the same format --><%= url.created_at %></td>
+        <td><%= url.clicks_count %></td>
         <td>
           <a href="<%= url_path(url.short_url) %>">
             <svg class="octicon octicon-graph" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
